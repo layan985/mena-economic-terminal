@@ -1,0 +1,37 @@
+{
+  "artifact_capture": {
+    "completed": true,
+    "sha256": "b3627bd4d5e5dbfc55f289a645dbc0f2ed8924b15bab027dd4b1f4d51c633f96",
+    "byte_length": 1651606,
+    "raw_bytes_public": false
+  },
+  "real_parser": {
+    "completed": true,
+    "result": {
+      "series_id": "labor.unemployment.total_population",
+      "period": "2026-Q1",
+      "entity": "ALL_RESIDENTS",
+      "value": 16.1,
+      "quality_status": "quarantined"
+    }
+  },
+  "chart_transcription": {
+    "rows": 51,
+    "validation": "passed",
+    "vintage_class": "retrospective_snapshot"
+  },
+  "independent_review": {
+    "sample_size": 20,
+    "sample_seed": 20260809,
+    "packet_frozen": true,
+    "external_reviewer_signed": false
+  },
+  "rights": {
+    "status": "copyright_no_redistribution_grant",
+    "raw_artifact_withheld": true
+  },
+  "git_commit": {
+    "completed": false
+  },
+  "public_release_gate": "blocked"
+}

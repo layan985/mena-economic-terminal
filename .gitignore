@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.db
+*.duckdb
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+build/
+dist/
+tmp/
+audit/answer_keys/

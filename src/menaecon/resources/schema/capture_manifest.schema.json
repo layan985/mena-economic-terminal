@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "menaecon immutable source capture manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_id", "path", "canonical_url", "source_document", "release_time",
+    "retrieval_timestamp", "sha256", "media_type", "release_time_evidence",
+    "license", "license_url", "license_evidence", "git_commit", "quality_status",
+    "byte_length"
+  ],
+  "properties": {
+    "source_id": {"type": "string", "minLength": 1},
+    "path": {"type": "string", "minLength": 1},
+    "canonical_url": {"type": "string", "format": "uri"},
+    "source_document": {"type": "string", "format": "uri"},
+    "release_time": {"type": "string", "format": "date-time"},
+    "retrieval_timestamp": {"type": "string", "format": "date-time"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "media_type": {"type": "string", "minLength": 1},
+    "release_time_evidence": {"type": "string", "minLength": 1},
+    "license": {"type": "string", "minLength": 1},
+    "license_url": {"type": "string"},
+    "license_evidence": {"type": "string", "minLength": 1},
+    "git_commit": {"type": "string"},
+    "quality_status": {"const": "quarantined"},
+    "byte_length": {"type": "integer", "minimum": 1}
+  }
+}

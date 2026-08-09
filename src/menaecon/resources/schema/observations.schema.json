@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mena-open-evidence.example/schema/observations-v0.1.json",
+  "title": "MENA Economic Observatory observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "series_id", "indicator", "value", "unit", "country", "entity", "period",
+    "frequency", "release_time", "vintage", "revision", "source", "source_url",
+    "source_document", "retrieval_timestamp", "transformation", "license",
+    "license_url", "source_hash", "git_commit", "quality_status", "notes"
+  ],
+  "properties": {
+    "observation_id": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "series_id": {"type": "string", "pattern": "^[a-z0-9_]+(?:\\.[a-z0-9_]+)+$"},
+    "indicator": {"type": "string", "minLength": 1},
+    "value": {"type": "number"},
+    "unit": {"type": "string", "minLength": 1},
+    "country": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "entity": {"type": "string"},
+    "period": {"type": "string"},
+    "frequency": {"enum": ["daily", "weekly", "monthly", "quarterly", "annual", "event"]},
+    "release_time": {"type": "string", "format": "date-time"},
+    "vintage": {"type": "string", "format": "date"},
+    "revision": {"type": "integer", "minimum": 0},
+    "source": {"type": "string", "minLength": 1},
+    "source_url": {"type": "string", "format": "uri"},
+    "source_document": {"type": "string", "format": "uri"},
+    "retrieval_timestamp": {"type": "string", "format": "date-time"},
+    "transformation": {"type": "string", "minLength": 1},
+    "license": {"type": "string", "minLength": 1},
+    "license_url": {"type": "string"},
+    "source_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "git_commit": {"oneOf": [{"const": "UNCOMMITTED"}, {"type": "string", "pattern": "^[0-9a-f]{40}$"}]},
+    "quality_status": {"enum": ["fixture", "verified", "quarantined"]},
+    "notes": {"type": "string"}
+  }
+}
