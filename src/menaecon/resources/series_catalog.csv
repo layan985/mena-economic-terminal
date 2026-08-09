@@ -1,0 +1,13 @@
+series_id,indicator,title,frequency,unit,entity_scope,source_family,status,release_calendar_required,vintage_policy
+labor.unemployment.total,unemployment,Deprecated ambiguous fixture-only unemployment rate,quarterly,percent,country,synthetic_fixture,deprecated_fixture_only,yes,never_publish
+labor.unemployment.total_population,unemployment,Unemployment rate all resident population by sex entity,quarterly,percent,country,national_statistics,real_capture_quarantined,yes,capture_every_release
+labor.unemployment.jordanian_population,unemployment,Unemployment rate Jordanian population,quarterly,percent,country,national_statistics,planned,yes,capture_every_release
+prices.cpi.headline_yoy,inflation,Headline consumer-price inflation year on year,monthly,percent_yoy,country,national_statistics,alpha_fixture,yes,capture_every_release
+monetary.policy_rate.cbj_main,policy_rate,Central Bank of Jordan main policy rate,event,percent,country,central_bank,adapter_alpha,yes,immutable_event_ledger
+fx.usd_local.close,fx,Local currency per US dollar,daily,local_per_usd,country,central_bank_or_market,planned,yes,daily_snapshot
+rates.sovereign_spread_5y,sovereign_spread,Five-year sovereign spread,daily,basis_points,country,market_vendor,planned,yes,daily_snapshot
+trade.goods.exports,trade_exports,Merchandise exports,monthly,current_usd,country,trade_authority,planned,yes,capture_every_release
+energy.oil.production,oil_production,Crude-oil production,monthly,barrels_per_day,country,energy_authority,planned,yes,capture_every_release
+firms.revenue,total_revenue,Corporate revenue,quarterly,reported_currency,firm,company_filing,planned,yes,filing_timestamp
+labor.job_postings,job_postings,Publicly observed job postings,daily,count,firm_or_country,licensed_provider,planned,yes,daily_snapshot
+firms.ai_adoption_evidence,ai_adoption,Documented firm AI-adoption evidence,event,binary_or_score,firm,primary_document,planned,yes,immutable_document_ledger

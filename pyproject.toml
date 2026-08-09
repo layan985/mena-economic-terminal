@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "menaecon"
+version = "0.2.0a1"
+description = "Vintage-safe, provenance-first public economic infrastructure for MENA"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "MENA Open Data & Evidence Lab"}]
+keywords = ["MENA", "economics", "vintage-data", "provenance", "forecasting"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = []
+
+[project.optional-dependencies]
+duckdb = ["duckdb>=1.1"]
+api = ["fastapi>=0.115", "uvicorn>=0.30"]
+jordan = ["pypdf>=5.0"]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11"]
+
+[project.scripts]
+menaecon = "menaecon.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+menaecon = ["resources/*.csv", "resources/schema/*.json"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
