@@ -1,5 +1,8 @@
 # MENA Economic Observatory / Terminal
 
+> **Portfolio case study:** [Contribution, public proof, claim boundaries and the next external-validation gate](docs/PORTFOLIO_CASE_STUDY.md).
+
+
 The **MENA Economic Observatory / Terminal** is the public economic-data infrastructure of the **MENA Open Data & Evidence Lab**. It is designed to preserve what researchers could have known at a particular point in time—not merely the latest revised number.
 
 This repository is an executable **v0.2.0a1 alpha**, not a claim that the regional database is already complete. It includes the canonical observation contract, a vintage-safe query engine, immutable capture tooling, strict Jordan source adapters, provenance gates, a CLI, an optional API, synthetic fixtures, tests, and the source-onboarding roadmap. No fixture, discovery or quarantined row is presented as verified official data.
