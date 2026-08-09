@@ -11,3 +11,4 @@ build/
 dist/
 tmp/
 audit/answer_keys/
+audit/rights_pending/

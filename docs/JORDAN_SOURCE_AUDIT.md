@@ -2,7 +2,7 @@
 
 ## Outcome
 
-The Jordan pilot now has three strict source adapters, an immutable capture path and one exact official PDF capture. It does **not** yet have publishable verified observations. The real Q1 2026 unemployment parser passed, but its output remains quarantined because rights do not grant redistribution, the independent review is unsigned and there is no repository commit.
+The Jordan pilot now has three strict source adapters, an immutable capture path and one exact official PDF capture. It does **not** yet have publishable verified observations. The real Q1 2026 unemployment parser passed, but its output remains quarantined because reuse permission is unresolved and the independent review is unsigned. Software and capture provenance are anchored to commit `29e916ca3350ba748f30022e0353f35de210121b`.
 
 ## Exact capture completed
 
@@ -16,8 +16,9 @@ The Jordan pilot now has three strict source adapters, an immutable capture path
 | Capture time | `2026-08-09T16:29:19.277475+00:00` |
 | Parser result | 16.1%, `ALL_RESIDENTS`, `2026-Q1` |
 | Status | Quarantined |
+| Provenance commit | `29e916ca3350ba748f30022e0353f35de210121b` |
 
-The PDF's page 2 chart was visually inspected after Poppler rendering. It contains 51 sex-by-quarter cells for Q1 2022 through Q1 2026. Those cells were transcribed as a retrospective snapshot with the **2026-06-17 vintage**; they are not mislabeled as contemporaneous historical vintages.
+The PDF's page 2 chart was visually inspected after Poppler rendering. It contains 51 sex-by-quarter cells for Q1 2022 through Q1 2026. Those cells were transcribed as a retrospective snapshot with the **2026-06-17 vintage**; they are not mislabeled as contemporaneous historical vintages. The transcription is retained in the rights-pending private audit workspace and is not distributed in the public repository.
 
 The publisher's [terms page](https://dosweb.dos.gov.jo/terms-conditions/) states that website information is subject to copyright unless noted otherwise. No redistribution grant was found. Original PDF bytes are therefore withheld from the public bundle while the hash, source link, byte length and provenance receipt remain public.
 
@@ -51,6 +52,6 @@ Jordan DoS releases can report monthly year-on-year inflation, month-on-month in
 2. Score the returned packet with 100% value and scope agreement or resolve every mismatch publicly.
 3. Obtain permission or a legal determination for redistribution; until then keep raw bytes withheld.
 4. Capture and audit the CPI and CBJ policy-rate sources.
-5. Attach a real full Git commit, rerun the release verifier and publish checksums.
+5. Attach the provenance commit to any rows restored after permission, rerun the release verifier and publish checksums.
 
 Until these gates pass, the discovery ledger is research planning evidence—not a dataset release.
