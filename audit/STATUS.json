@@ -18,7 +18,8 @@
   "chart_transcription": {
     "rows": 51,
     "validation": "passed",
-    "vintage_class": "retrospective_snapshot"
+    "vintage_class": "retrospective_snapshot",
+    "public_distribution": false
   },
   "independent_review": {
     "sample_size": 20,
@@ -28,10 +29,13 @@
   },
   "rights": {
     "status": "copyright_no_redistribution_grant",
-    "raw_artifact_withheld": true
+    "raw_artifact_withheld": true,
+    "derived_chart_withheld": true
   },
   "git_commit": {
-    "completed": false
+    "completed": true,
+    "reference_commit": "29e916ca3350ba748f30022e0353f35de210121b",
+    "scope": "software_and_capture_receipt"
   },
   "public_release_gate": "blocked"
 }

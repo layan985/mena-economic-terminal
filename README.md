@@ -17,7 +17,7 @@ This repository is an executable **v0.2.0a1 alpha**, not a claim that the region
 - Strict Jordan DoS unemployment/CPI and CBJ policy-rate parsers.
 - Machine-readable Jordan release-calendar audit and discovery ledger.
 - Exact Q1 2026 Jordan DoS unemployment PDF capture receipt and successful real-parser result.
-- Quarantined 51-cell retrospective chart transcription plus a frozen 20-cell blind review packet.
+- A 51-cell retrospective chart transcription retained outside the public tree while reuse rights are unresolved, plus a frozen 20-cell blind review packet.
 - Independent-audit scorer that rejects self-review and incomplete signatures.
 - Synthetic Jordan unemployment fixture for reproducible tests and demos.
 - Release gates that prevent fixtures, unlicensed material or incomplete provenance from entering a public release.
@@ -68,7 +68,7 @@ menaecon parse-jordan raw/JOR_DOS/unemployment/ARTIFACT.pdf.manifest.json \
   --database warehouse.db
 ```
 
-Parsing does **not** promote the observation to `verified`. Rights review, exact release-time evidence, independent source-document comparison and a full Git commit must be completed separately. Quarantined rows never appear in ordinary `get()` results.
+Parsing does **not** promote the observation to `verified`. Rights review, exact release-time evidence, independent source-document comparison and row-level Git provenance must be completed separately. Quarantined rows never appear in ordinary `get()` results.
 
 The intended stable interface after the publication gates are satisfied is:
 
@@ -103,6 +103,7 @@ For each period, `get(..., vintage="2026-06-01")` returns the most recent releas
 | `docs/` | Architecture, provenance, governance, gates and roadmap |
 | `tests/` | No-leakage, revision, validation and round-trip tests |
 | `scripts/verify_release.py` | Public-release blocker |
+| `DATA_RIGHTS.md` | Boundary between MIT-licensed software and third-party data |
 
 ## Non-negotiable publication rule
 
@@ -110,4 +111,4 @@ An observation cannot be released as `verified` unless the source artifact is re
 
 ## Project status
 
-`v0.2.0a1`: first exact Jordan source capture. The Q1 2026 unemployment PDF is hashed and the real parser passes, but its observation and 51 chart cells remain quarantined because the source terms do not grant redistribution and the 20-cell external audit is unsigned. A real Git commit is also pending. See [docs/JORDAN_SOURCE_AUDIT.md](docs/JORDAN_SOURCE_AUDIT.md).
+`v0.2.0a1`: first exact Jordan source capture. The Q1 2026 unemployment PDF is hashed and the real parser passes. Software and capture provenance are anchored to commit `29e916ca3350ba748f30022e0353f35de210121b`, but the official observation remains quarantined because reuse permission is unresolved and the 20-cell external audit is unsigned. The rights-pending 51-cell transcription is not distributed in the public tree. See [DATA_RIGHTS.md](DATA_RIGHTS.md) and [docs/JORDAN_SOURCE_AUDIT.md](docs/JORDAN_SOURCE_AUDIT.md).

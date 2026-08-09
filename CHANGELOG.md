@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Anchor the software and Jordan capture receipt to Git commit `29e916ca3350ba748f30022e0353f35de210121b`.
+- Withhold the 51-cell chart transcription from the public tree while reuse permission is unresolved.
+- Clarify that the MIT license covers Lab-authored software, not third-party statistical material.
+- Preserve the frozen blind review packet and fail-closed public release gate.
+
 ## 0.2.0a1 — 2026-08-09
 
 - Capture the exact 10-page Jordan DoS Q1 2026 unemployment PDF from its official link.
