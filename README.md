@@ -1,44 +1,25 @@
-# MENA Economic Observatory / Terminal
+# MENA Economic Terminal
 
-> **Research portfolio:** [layanaloreidi.online](https://layanaloreidi.online)
+Economic datasets usually give you the latest revised observation. That is a problem for forecasting: a model evaluated on today's data may be using information that did not exist when the forecast was supposedly made. This repository is my attempt to preserve the publication history of MENA macroeconomic series so that historical information sets can be reconstructed.
 
-> **Portfolio case study:** [Contribution, public proof, claim boundaries and the next external-validation gate](docs/PORTFOLIO_CASE_STUDY.md).
+## Current status
 
+The query and source-tracking code works, but regional coverage is not finished. The first real source adapter is Jordanian unemployment data.
 
-The **MENA Economic Observatory / Terminal** is the public economic-data infrastructure of the **MENA Open Data & Evidence Lab**. It is designed to preserve what researchers could have known at a particular point in time—not merely the latest revised number.
+As of 10 August 2026:
 
-This repository is an executable **v0.2.0a1 alpha**, not a claim that the regional database is already complete. It includes the canonical observation contract, a vintage-safe query engine, immutable capture tooling, strict Jordan source adapters, provenance gates, a CLI, an optional API, synthetic fixtures, tests, and the source-onboarding roadmap. No fixture, discovery or quarantined row is presented as verified official data.
+- point-in-time queries exclude releases and revisions published after the requested date;
+- the Q1 2026 Jordan unemployment PDF has been captured, hashed, and parsed;
+- that observation is still quarantined because reuse rights are unresolved and the blind source check is unsigned;
+- the repository therefore contains no public row presented as verified official data;
+- CPI and policy-rate parser code exists, but those sources are not a finished regional database;
+- fixtures are synthetic and appear in queries only when explicitly requested.
 
-## What works now
+[RESULTS.md](RESULTS.md) records what has and has not worked. The reasoning behind the first source choices is in [notes/](notes/).
 
-- Immutable, append-only observations with release time, vintage, revision and source hash.
-- Point-in-time queries that exclude future releases and revisions.
-- Python API matching the intended public interface.
-- Command-line initialization, ingestion, validation, querying and catalog inspection.
-- SQLite zero-dependency backend; optional DuckDB backend for analytical workloads.
-- Row-level validation and quarantine-ready quality status.
-- Machine-readable indicator catalog, source registry and JSON Schema.
-- Content-addressed HTTP capture with SHA-256 manifests and quarantine by default.
-- Strict Jordan DoS unemployment/CPI and CBJ policy-rate parsers.
-- Machine-readable Jordan release-calendar audit and discovery ledger.
-- Exact Q1 2026 Jordan DoS unemployment PDF capture receipt and successful real-parser result.
-- A 51-cell retrospective chart transcription retained outside the public tree while reuse rights are unresolved, plus a frozen 20-cell blind review packet.
-- Independent-audit scorer that rejects self-review and incomplete signatures.
-- Synthetic Jordan unemployment fixture for reproducible tests and demos.
-- Release gates that prevent fixtures, unlicensed material or incomplete provenance from entering a public release.
+## Why vintages matter
 
-## Quick start
-
-The package is not yet published to PyPI. Install this alpha from the repository:
-
-```bash
-python -m pip install -e .
-menaecon init --database ./warehouse.db --with-fixtures
-menaecon get unemployment --country JOR --vintage 2026-06-01 \
-  --database ./warehouse.db --include-fixtures
-```
-
-Python:
+Suppose an unemployment estimate for Q1 is released in June and revised in September. A query with a June cutoff must return the June value, even if the warehouse also contains the September revision.
 
 ```python
 from menaecon import MenaClient
@@ -47,14 +28,28 @@ mena = MenaClient("./warehouse.db")
 result = mena.get(
     "unemployment",
     country="JOR",
-    vintage="2026-06-01",
+    vintage="2026-06-30",
 )
-print(result.to_dicts())
 ```
 
-## Jordan source-onboarding workflow
+The tests in [tests/test_vintages.py](tests/test_vintages.py) check that future releases remain invisible.
 
-Capture the exact publisher bytes before parsing. The capture is deliberately quarantined:
+## Install the alpha
+
+The package is not on PyPI.
+
+```bash
+python -m pip install -e .
+menaecon init --database ./warehouse.db --with-fixtures
+menaecon get unemployment --country JOR --vintage 2026-06-01 \
+  --database ./warehouse.db --include-fixtures
+```
+
+`--include-fixtures` matters: without it, the synthetic demo rows are not returned as if they were observations.
+
+## Adding a source
+
+The source document is captured before it is parsed:
 
 ```bash
 menaecon capture \
@@ -65,55 +60,16 @@ menaecon capture \
   --release-time-evidence "publisher archive page timestamp"
 ```
 
-Then parse the returned manifest:
+The returned manifest stores the requested URL, retrieval time, content type, byte length, and SHA-256 hash. Parsing the file does not make the resulting row verified. Rights, release-time evidence, and a source-document comparison are separate checks.
 
-```bash
-menaecon parse-jordan raw/JOR_DOS/unemployment/ARTIFACT.pdf.manifest.json \
-  --adapter dos-unemployment \
-  --database warehouse.db
-```
+## Observation fields
 
-Parsing does **not** promote the observation to `verified`. Rights review, exact release-time evidence, independent source-document comparison and row-level Git provenance must be completed separately. Quarantined rows never appear in ordinary `get()` results.
+Each stored observation includes the value and reference period, when it was released, which vintage it belongs to, the source document, retrieval time, transformation, license note, and file hash. The full schema is in [docs/DATA_CONTRACT.md](docs/DATA_CONTRACT.md).
 
-The intended stable interface after the publication gates are satisfied is:
+The main code is under [src/menaecon/](src/menaecon/); source-specific parsers are under [src/menaecon/sources/](src/menaecon/sources/); and leakage, validation, and round-trip tests are under [tests/](tests/).
 
-```python
-from menaecon import mena
+## Known limitation
 
-mena.get("unemployment", country="JOR", vintage="2026-06-01")
-```
+The rights-pending 51-cell Jordan transcription is not distributed in this repository. A 20-cell blind review packet is included, but it has not been signed by an independent reviewer. Until those questions are resolved, the Jordan row remains quarantined regardless of whether the parser passes.
 
-## The observation contract
-
-Every observation must carry:
-
-```text
-value · country · entity · period · release_time · vintage · revision
-source · source_document · retrieval_timestamp · transformation · license
-source_hash · git_commit
-```
-
-The contract also requires a stable `series_id`, unit, frequency and explicit quality status. See [docs/DATA_CONTRACT.md](docs/DATA_CONTRACT.md).
-
-## Why the vintage model matters
-
-For each period, `get(..., vintage="2026-06-01")` returns the most recent release available by that cutoff. A revision released on June 15 is invisible to the query. This invariant is tested and is the foundation for honest rolling-origin forecasting, central-bank event studies and policy-shock measurement.
-
-## Repository map
-
-| Path | Purpose |
-| --- | --- |
-| `src/menaecon/` | Client, warehouse, capture, source adapters, validation, CLI and API |
-| `src/menaecon/resources/` | Fixture, catalog, source registry and JSON Schema |
-| `docs/` | Architecture, provenance, governance, gates and roadmap |
-| `tests/` | No-leakage, revision, validation and round-trip tests |
-| `scripts/verify_release.py` | Public-release blocker |
-| `DATA_RIGHTS.md` | Boundary between MIT-licensed software and third-party data |
-
-## Non-negotiable publication rule
-
-An observation cannot be released as `verified` unless the source artifact is retained or its permitted canonical URL is recorded; the artifact hash is checked; retrieval time is preserved; license status is explicit; the transformation is reproducible; and the exact Git commit is attached. The release verifier fails if any public export contains fixture or quarantined rows.
-
-## Project status
-
-`v0.2.0a1`: first exact Jordan source capture. The Q1 2026 unemployment PDF is hashed and the real parser passes. Software and capture provenance are anchored to commit `29e916ca3350ba748f30022e0353f35de210121b`, but the official observation remains quarantined because reuse permission is unresolved and the 20-cell external audit is unsigned. The rights-pending 51-cell transcription is not distributed in the public tree. See [DATA_RIGHTS.md](DATA_RIGHTS.md) and [docs/JORDAN_SOURCE_AUDIT.md](docs/JORDAN_SOURCE_AUDIT.md).
+See [DATA_RIGHTS.md](DATA_RIGHTS.md) and [docs/JORDAN_SOURCE_AUDIT.md](docs/JORDAN_SOURCE_AUDIT.md).
