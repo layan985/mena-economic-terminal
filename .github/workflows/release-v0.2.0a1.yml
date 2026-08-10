@@ -1,0 +1,29 @@
+name: release-v0.2.0a1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/release-v0.2.0a1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Terminal alpha release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v0.2.0a1 >/dev/null 2>&1; then
+            echo 'v0.2.0a1 already exists; nothing to do.'
+            exit 0
+          fi
+          gh release create v0.2.0a1 \
+            --target "$GITHUB_SHA" \
+            --title 'v0.2.0a1 — executable vintage-safe Terminal alpha' \
+            --notes 'Completed executable software alpha for the MENA Economic Terminal. Includes vintage-safe point-in-time queries, source capture and SHA-256 provenance, SQLite storage, CLI/Python interfaces, source adapters, quarantine/validation states, and leakage/round-trip tests. Regional data coverage is intentionally incomplete. The first Jordan unemployment observation remains quarantined pending redistribution-rights resolution and independent source review; this release does not present it as verified public data.'
