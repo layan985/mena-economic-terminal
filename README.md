@@ -4,7 +4,9 @@ Economic datasets usually give you the latest revised observation. That is a pro
 
 ## Current status
 
-The query and source-tracking code works, but regional coverage is not finished. The first real source adapter is Jordanian unemployment data.
+**v0.2.0a1 is a completed executable software alpha.** The query, capture, provenance, validation and source-adapter machinery is versioned and frozen; regional data coverage remains an ongoing collection problem rather than a software-release blocker. See [RELEASE_STATUS.md](RELEASE_STATUS.md).
+
+The first real source adapter is Jordanian unemployment data.
 
 As of 10 August 2026:
 
